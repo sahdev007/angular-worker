@@ -254,7 +254,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.updateStatus();
-    
+
     window.addEventListener('online',  this.updateStatus.bind(this));
     window.addEventListener('offline', this.updateStatus.bind(this));
   
@@ -262,7 +262,7 @@ export class AppComponent implements OnInit{
       this.swUpdate.versionUpdates.pipe(
         filter((evt: any): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
         map((evt: any) => {
-          console.info(`currentVersion=[${evt.currentVersion} | latestVersion=[${evt.latestVersion}]`);
+          console.log(`currentVersion=[${evt.currentVersion} | latestVersion=[${evt.latestVersion}]`);
           this.modalVersion = true;
         }),
       );
