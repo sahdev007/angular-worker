@@ -266,8 +266,8 @@ export class AppComponent implements OnInit{
     if (this.swUpdate.isEnabled) {
       console.log('Enabled')
       this.swUpdate.versionUpdates.pipe(
-        filter((evt: any): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
         map((evt: any) => {
+          console.log(evt, 'Whtat is ')
           console.log(`currentVersion=[${evt.currentVersion} | latestVersion=[${evt.latestVersion}]`);
           this.modalVersion = true;
         }),
