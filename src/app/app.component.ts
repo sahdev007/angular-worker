@@ -259,8 +259,8 @@ export class AppComponent implements OnInit{
     window.addEventListener('online',  this.updateStatus.bind(this));
     window.addEventListener('offline', this.updateStatus.bind(this));
   
-    const updateFound = await this.swUpdate.checkForUpdate();
-    console.log(updateFound ? 'A new version is available.' : 'Already on the latest version.');
+    // const updateFound = await this.swUpdate.checkForUpdate();
+    // console.log(updateFound ? 'A new version is available.' : 'Already on the latest version.');
 
     if (this.swUpdate.isEnabled) {
       console.log('Enabled')
