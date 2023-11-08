@@ -1,0 +1,17 @@
+<div class="container-fluid py-3">
+    <h1>Progressive Web Application (PWA)</h1>
+  
+    <div style="display:flex; align-items: center; justify-content: center; margin: 50px 10px;">
+      <div style="text-align: right; margin-right:10px">
+        Status:
+      </div>
+      <div style="text-align: center">
+        <span style="color:green; font-weight: 900;" *ngIf="isOnline">Online</span>
+        <span style="color:red; font-weight: 900;" *ngIf="!isOnline">Offline</span>
+      </div>
+    </div>
+  </div>
+<ul>
+    <h3>List of Employee</h3>
+    <li style="margin-bottom: 10px;" *ngFor="let item of users">Name: {{item?.name}} <br> email: {{item?.email}}</li>
+</ul>
