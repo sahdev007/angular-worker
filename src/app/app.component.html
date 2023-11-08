@@ -13,7 +13,7 @@
   </div>
 <ul>
     <h3>List of Employee</h3>
-    <li style="margin-bottom: 10px;" *ngFor="let item of users">Name: {{item?.name}} <br> email: {{item?.email}}</li>
+    <li style="margin-bottom: 10px;" *ngFor="let item of apiData">Name: {{item?.name}} <br> email: {{item?.email}}</li>
 </ul>
 
 <div style="width:100%; position:absolute; top:0" *ngIf="modalVersion">
