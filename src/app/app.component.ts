@@ -258,6 +258,10 @@ export class AppComponent implements OnInit{
     window.addEventListener('online',  this.updateStatus.bind(this));
     window.addEventListener('offline', this.updateStatus.bind(this));
   
+    this.swUpdate.activated.subscribe((event: any) => {
+      console.log('previoue', event.previous, 'current', event.current);
+    });
+
     if (this.swUpdate.isEnabled) {
       this.swUpdate.versionUpdates.pipe(
         filter((evt: any): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
