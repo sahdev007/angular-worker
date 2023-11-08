@@ -264,6 +264,7 @@ export class AppComponent implements OnInit{
     });
 
     if (this.swUpdate.isEnabled) {
+      console.log('Enabled')
       this.swUpdate.versionUpdates.pipe(
         filter((evt: any): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
         map((evt: any) => {
@@ -271,6 +272,8 @@ export class AppComponent implements OnInit{
           this.modalVersion = true;
         }),
       );
+    } else {
+      console.log('Not enabled');
     }
 
     if(!this.isOnline){
