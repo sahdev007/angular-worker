@@ -252,16 +252,15 @@ export class AppComponent implements OnInit{
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.updateStatus();
     this.updateUser();
 
     window.addEventListener('online',  this.updateStatus.bind(this));
     window.addEventListener('offline', this.updateStatus.bind(this));
   
-    this.swUpdate.activated.subscribe((event: any) => {
-      console.log('previoue', event.previous, 'current', event.current);
-    });
+    const updateFound = await this.swUpdate.checkForUpdate();
+    console.log(updateFound ? 'A new version is available.' : 'Already on the latest version.');
 
     if (this.swUpdate.isEnabled) {
       console.log('Enabled')
