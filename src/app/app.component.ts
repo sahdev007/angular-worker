@@ -13,6 +13,7 @@ export class AppComponent implements OnInit{
 
   apiData:any;
   isOnline: boolean = false;
+  modalVersion: boolean = false;
 
   users: Array<any> = [
     {
@@ -248,47 +249,42 @@ export class AppComponent implements OnInit{
   ]
 
   constructor(public http: HttpClient, private swUpdate: SwUpdate) {
-    this.updateClient();
+
   }
 
   ngOnInit(): void {
     this.updateStatus();
+    
     window.addEventListener('online',  this.updateStatus.bind(this));
     window.addEventListener('offline', this.updateStatus.bind(this));
   
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.versionUpdates.pipe(
+        filter((evt: any): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
+        map((evt: any) => {
+          console.info(`currentVersion=[${evt.currentVersion} | latestVersion=[${evt.latestVersion}]`);
+          this.modalVersion = true;
+        }),
+      );
+    }
+
     if(!this.isOnline){
       console.log(`Status = ${this.isOnline}`);
       location.reload();
     }
   }
 
-  updateClient() {
-    if(!this.swUpdate.isEnabled) {
-      console.log("Not enabled");
-      return;
-    }
-
-    this.swUpdate.versionUpdates
-    .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
-    .subscribe(evt => {
-      console.log(evt, 'fdhfih')
-      if (evt) {
-        // Reload the page to update to the latest version.
-        document.location.reload();
-      }
-    });
-
-    // this.swUpdate.available.subscribe((event: any) => {
-    //   console.log('current', event.current, 'available', event.available);
-    // });
-
-    // this.swUpdate.activated.subscribe((event: any) => {
-    //   console.log('previoue', event.previous, 'current', event.current);
-    // });
-  }
-
   updateStatus() {
     this.isOnline = window.navigator.onLine;
     console.info(`isOnline=${this.isOnline}`);
+  }
+
+  updateVersion(): void {
+    this.modalVersion = false;
+    window.location.reload();
+  }
+
+  closeVersion(): void {
+    this.modalVersion = false;
   }
 }

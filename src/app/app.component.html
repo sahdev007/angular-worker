@@ -15,3 +15,10 @@
     <h3>List of Employee</h3>
     <li style="margin-bottom: 10px;" *ngFor="let item of users">Name: {{item?.name}} <br> email: {{item?.email}}</li>
 </ul>
+
+<div style="width:100%; position:absolute; top:0" *ngIf="modalVersion">
+  <div class="alert alert-secondary m-2">
+    <button type="button" style="position:absolute; top:0; end:0;" aria-label="Close" (click)="closeVersion()"></button>
+    A new version of this app is available. <a href="" (click)="updateVersion()">Update now</a>
+  </div>
+</div>
