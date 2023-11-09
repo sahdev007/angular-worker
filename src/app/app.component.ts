@@ -253,6 +253,9 @@ export class AppComponent implements OnInit{
   }
 
   async ngOnInit() {
+    if("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("offline-worker.js");
+    }
     this.updateStatus();
     this.updateUser();
 
@@ -275,9 +278,14 @@ export class AppComponent implements OnInit{
       console.log('Not enabled');
     }
 
-    if(!this.isOnline){
-      console.log(`Status = ${this.isOnline}`);
-      location.reload();
+    if(navigator.onLine){
+      // console.log(`Status = ${this.isOnline}`);
+      // location.reload();
+      this.updateUser();
+    } else {
+      navigator.serviceWorker.ready.then(function(swRegistration : any) {
+        return swRegistration.sync.register('getAllData');
+      });
     }
   }
 
