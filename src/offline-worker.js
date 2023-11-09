@@ -15,9 +15,16 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-    event.respondWith(async () => {
-      const response = await caches.open(event.request);
-        return response ? response : await fetch(event.request);
-    })
+    event.respondWith(
+        fetch(event.request).catch(function() {
+          return caches.match(event.request).then(function(response) {
+            if (response) {
+              return response;
+            } else if (event.request.headers.get("accept").includes("text/html")) {
+              return caches.match("/index-offline.html");
+            }
+          });
+        })
+      );
   });
   
