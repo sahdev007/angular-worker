@@ -30,12 +30,12 @@
   "dataGroups": [
     {
       "name": "api-call",
-      "urls": ["https://jsonplaceholder.typicode.com/users"],
+      "urls": ["https://jsonplaceholder.typicode.com/users", "https://api.alumnithrive.com/api"],
       "cacheConfig": {
         "maxAge": "12h",
         "maxSize": 10,
         "strategy": "performance",
-        "timeout": "5s"
+        "timeout": "10s"
       }
     }
   ]
